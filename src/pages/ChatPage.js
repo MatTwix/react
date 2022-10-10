@@ -1,89 +1,46 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, Container, TextField} from "@mui/material";
 import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import * as messagesSelector from "../redux/store/Messages/selectors";
 
 const ChatPage = () => {
-    const [messageList, setMassageList] = useState([
-        {
-            id: 1,
-            text: 'hello',
-            author: 'Mat',
-            chatId: 1
-        },
-        {
-            id: 2,
-            text: 'hi',
-            author: 'serg',
-            chatId: 1
-        },
-        {
-            id: 3,
-            text: 'no',
-            author: 'igr',
-            chatId: 2
-        },
-        {
-            id: 4,
-            text: 'yes',
-            author: 'vasya',
-            chatId: 2
-        },
-        {
-            id: 5,
-            text: 'const',
-            author: 'andr',
-            chatId: 3
-        },
-        {
-            id: 6,
-            text: 'bye',
-            author: 'din',
-            chatId: 3
-        },
-        {
-            id: 7,
-            text: 'good',
-            author: 'svn',
-            chatId: 3
-        },
-    ]);
+    const messageList = useSelector(messagesSelector.messageList);
+
+    const dispatch = useDispatch();
+
     const [text, setText] = useState('');
     const [author, setAuthor] = useState('');
 
     const params = useParams();
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
 
-        setMassageList(prevState => [...prevState, {
-            id: giveLastId(prevState),
-            text: text,
-            author: author,
-            chatId: +params.chatId
-        }])
+        dispatch({
+            type: 'add', payload: {
+                text: text ? text : `Сообщение автора ${messageList[messageList.length - 1].author} отправлено!`,
+                author: author ? author : 'Bot',
+                chatId: +params.chatId
+            }
+        })
     }
 
-    function giveLastId(array) {
-        return array.length ? array[array.length - 1].id + 1 : 0
+    const handleDelete = (id) => {
+        dispatch({type: 'delete', payload: id})
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            botAnswer();
-        }, 1000)
-    }, [messageList])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         botAnswer();
+    //     }, 1000)
+    // }, messageList)
+    //
+    // function botAnswer() {
+    //     handleSubmit();
+    // }
+    // TODO: remake bot answering
 
-    function botAnswer() {
-        const lastAuthor = messageList[messageList.length - 1];
-        if (lastAuthor && lastAuthor.author) {
-            setMassageList(prevState => [
-                ...prevState, {
-                    id: giveLastId(prevState),
-                    text: `Сообщение автора ${lastAuthor.author} отправлено!`
-                }
-            ])
-        }
-    }
     return (
         <Container
             sx={{
@@ -120,32 +77,36 @@ const ChatPage = () => {
                 >Добавить сообщение</Button>
             </Box>
             <Box>
-                {messageList.filter(message => message.chatId === +params.chatId).map((item) => {
-                    return (
-                        <Box
-                            key={item.id}
-                            sx={{
-                                marginTop: 3,
-                            }}
-                        >
-                            <i>{item.author}</i>
+                {messageList.filter(message => message.chatId === +params.chatId).length > 0 ?
+                    messageList.filter(message => message.chatId === +params.chatId).map((item) => {
+                        return (
                             <Box
+                                key={item.id}
                                 sx={{
-                                    paddingRight: 5,
-                                    paddingLeft: 5,
-                                    paddingTop: 1,
-                                    paddingBottom: 1,
-                                    color: 'white',
-                                    width: 300,
-                                    backgroundColor: 'primary.dark',
-                                    borderRadius: 10
+                                    marginTop: 3,
                                 }}
                             >
-                                <p>{item.text}</p>
+                                <i>{item.author}</i>
+                                <Box
+                                    sx={{
+                                        paddingRight: 5,
+                                        paddingLeft: 5,
+                                        paddingTop: 1,
+                                        paddingBottom: 1,
+                                        color: 'white',
+                                        width: 300,
+                                        backgroundColor: 'primary.dark',
+                                        borderRadius: 10
+                                    }}
+                                >
+                                    <p>{item.text}</p>
+                                </Box>
+                                <button onClick={() => handleDelete(item.id)}>x</button>
                             </Box>
-                        </Box>
-                    )
-                })}
+                        )
+                    })
+                    : 'Сообщений нет!'
+                }
             </Box>
         </Container>
     );

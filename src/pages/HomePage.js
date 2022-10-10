@@ -1,8 +1,11 @@
 import React from 'react';
+import {useDispatch, useSelector} from "react-redux";
 
 const HomePage = () => {
     return (
-        <h1>Home page</h1>
+        <div>
+            <h1>Home page</h1>
+        </div>
     );
 };
 
