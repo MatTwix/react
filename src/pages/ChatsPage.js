@@ -1,52 +1,63 @@
-import React from 'react';
-import {Box, List, ListItem} from "@mui/material";
-
-const chatList = [
-    {
-        id: 1,
-        name: 'Chat1'
-    },
-    {
-        id: 2,
-        name: 'Chat2'
-    },
-    {
-        id: 3,
-        name: 'Chat3'
-    }
-];
+import React, {useContext} from 'react';
+import {Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Typography} from "@mui/material";
+import {ThemeContext} from "../context";
+import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {chatsSelectors} from '../redux/store/Chats/index'
 
 const ChatsPage = () => {
+    const themes = useContext(ThemeContext);
+    const chatList = useSelector(chatsSelectors.chatList)
+
     return (
         <Box>
             <List
                 sx={{
-                    borderRadius: 10,
-                    backgroundColor: 'skyblue',
-                    color: 'white',
-                    marginBottom: 2,
-                    width: 200
-                }}
+                    width: '100%',
+                    maxWidth: 360,
+                    bgcolor: themes.background,
+                    height: 300, display: 'flex',
+                    flexFlow: 'column wrap',
+                    justifyContent: 'space-around'
+            }}
             >
-                {chatList.map((chat) => {
-                    return (
-                        <ListItem
-                            key={chat.id}
-                            sx={{
-                                width: 182,
-                                margin: 1,
-                                paddingLeft: 1,
-                                paddingRight: 1,
-                                backgroundColor: 'turquoise',
-                                borderColor: 'white',
-                                borderStyle: 'solid',
-                                borderRadius: 5
-                            }}
-                        >
-                            {chat.name}
-                        </ListItem>
-                    )
-                })}
+                {chatList.length > 0 ?
+                    chatList.map((chat) => {
+                            return (
+                                <ListItemButton
+                                    key={chat.id}
+                                    sx={{
+                                        width: 300,
+                                        margin: 1,
+                                        paddingLeft: 1,
+                                        paddingRight: 1
+                                    }}
+                                    component={Link}
+                                    to={`/chats/${chat.id}`}
+                                >
+                                    <ListItemAvatar>
+                                        <Avatar>
+                                            av
+                                        </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText primary={chat.name} secondary={
+                                        <React.Fragment>
+                                            <Typography
+                                                sx={{display: 'inline'}}
+                                                component="span"
+                                                variant="body2"
+                                                color={themes.color}
+                                            >
+                                                AUTHOR
+                                            </Typography>
+                                            {': MESSAGE'}
+                                        </React.Fragment>
+                                    }/>
+                                </ListItemButton>
+                            )
+                        })
+                     : "Чатов нет"
+                }
             </List>
         </Box>
     );
