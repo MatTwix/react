@@ -21,12 +21,6 @@ const initialState = {
 
 export const chatsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'delete':
-            return {
-                ...state,
-                chats: state.chats.filter((item) => item.id !== action.payload)
-            }
-
         default:
             return state
     }
