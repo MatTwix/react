@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
-import {Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Typography} from "@mui/material";
+import {Avatar, Box, List, ListItemAvatar, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {ThemeContext} from "../context";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {chatsSelectors} from '../redux/store/Chats/index'
+import {chatsSelectors} from '../redux/reducers/Chats/index'
 
 const ChatsPage = () => {
     const themes = useContext(ThemeContext);

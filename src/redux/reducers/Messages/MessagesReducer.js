@@ -47,15 +47,15 @@ const initialState = {
 
 export const messagesReducer =  (state = initialState, action) => {
     switch (action.type) {
-        case 'delete':
+        case 'MESSAGE::DELETE':
             return {
                 ...state,
-                messages: state.messages.filter((item) => item.id !== action.payload)
+                messages: state.messages.filter((item) => item.id !== action.payload.id)
             }
 
-        case 'add':
+        case 'MESSAGE::ADD':
             state.messages.push({
-                id: state.messages.length ? - state.messages.length - 1 : 0,
+                id: action.payload.id ? action.payload.id : state.messages.length ? state.messages.length - 1 : 0,
                 text: action.payload.text,
                 author: action.payload.author,
                 chatId: action.payload.chatId
