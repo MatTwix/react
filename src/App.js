@@ -8,6 +8,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ChatsPage from "./pages/ChatsPage";
 import {ThemeContext, themes} from "./context";
 import ChatPage from "./pages/ChatPage";
+import NewsPage from "./pages/NewsPage";
 
 function App() {
     const [theme, setTheme] = useState(themes.light);
@@ -22,6 +23,7 @@ function App() {
                     <Route index element={<HomePage />}/>
                     <Route path={'/chats'} element={<ChatsPage />} />
                     <Route path={'/chats/:chatId'} element={<ChatPage />}/>
+                    <Route path={'/news'} element={<NewsPage />}/>
                     <Route path={'/profile'} element={<ProfilePage />}/>
                     <Route path={'*'} element={<NotFoundPage />}/>
                 </Route>

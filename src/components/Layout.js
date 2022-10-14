@@ -26,6 +26,8 @@ const Layout = () => {
                     <CustomLink to="chats" >chats</CustomLink>
                     <br/>
                     <CustomLink to="/profile">profile</CustomLink>
+                    <br/>
+                    <CustomLink to="/news">news</CustomLink>
                 </Box>
             </header>
             <main>

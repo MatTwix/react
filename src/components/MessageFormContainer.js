@@ -19,9 +19,9 @@ const MessageFormContainer = () => {
 
         dispatch({
             type: 'MESSAGE::ADD', payload: {
-                text: text, //`Сообщение автора ${messageList[messageList.length - 1].author} отправлено!`,
-                author: author, //'Bot',
-                chatId: +params.chatId // messageList[messageList.length - 1].chatId
+                text: text,
+                author: author,
+                chatId: +params.chatId
             }
         })
     }

@@ -6,6 +6,7 @@ import {persistReducer, persistStore} from "redux-persist";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import botAnswerSaga from "./sagas";
+import {newsReducer} from "../reducers/News/newsReducer";
 const config = {
     key: 'root',
     storage
@@ -15,7 +16,8 @@ const sagaMiddleware = createSagaMiddleware();
 
 const reducer = combineReducers({
     chats: chatsReducer,
-    messages: messagesReducer
+    messages: messagesReducer,
+    news: newsReducer
 })
 
 const persistedReducer = persistReducer(config, reducer);
