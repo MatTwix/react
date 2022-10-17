@@ -13,6 +13,9 @@ const NewsPage = () => {
         dispatch(getNews())
     }, [])
 
+    function handleRepeat() {
+        dispatch(getNews())
+    }
 
     if(loading) {
         return 'Идет загрузка...'
@@ -22,6 +25,7 @@ const NewsPage = () => {
         return (
             <div>
                 <p>Произошла ошибка загрузки</p>
+                <button onClick={() => handleRepeat()}>Попробовать снова</button>
             </div>
         )
     }
