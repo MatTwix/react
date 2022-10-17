@@ -5,11 +5,26 @@ import {getNews} from "../redux/reducers/News/newsReducer";
 
 const NewsPage = () => {
     const newsList = useSelector(newsSelectors.newsList);
+    const loading = useSelector(newsSelectors.newsLoading);
+    const error = useSelector(newsSelectors.newsError)
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getNews())
     }, [])
+
+
+    if(loading) {
+        return 'Идет загрузка...'
+    }
+
+    if (error) {
+        return (
+            <div>
+                <p>Произошла ошибка загрузки</p>
+            </div>
+        )
+    }
 
     return (
         <div>

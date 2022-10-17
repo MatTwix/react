@@ -33,7 +33,11 @@ const Layout = () => {
             <main>
                 <Outlet />
             </main>
-            <footer>footer</footer>
+            <footer>
+                <h1>
+                    footer
+                </h1>
+            </footer>
         </Box>
     );
 };
