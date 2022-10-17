@@ -26,12 +26,18 @@ const Layout = () => {
                     <CustomLink to="chats" >chats</CustomLink>
                     <br/>
                     <CustomLink to="/profile">profile</CustomLink>
+                    <br/>
+                    <CustomLink to="/news">news</CustomLink>
                 </Box>
             </header>
             <main>
                 <Outlet />
             </main>
-            <footer>footer</footer>
+            <footer>
+                <h1>
+                    footer
+                </h1>
+            </footer>
         </Box>
     );
 };
