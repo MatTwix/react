@@ -9,6 +9,8 @@ import ChatsPage from "./pages/ChatsPage";
 import {ThemeContext, themes} from "./context";
 import ChatPage from "./pages/ChatPage";
 import NewsPage from "./pages/NewsPage";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
     const [theme, setTheme] = useState(themes.light);
@@ -20,7 +22,9 @@ function App() {
         <ThemeContext.Provider value={{themes: theme, toggleTheme: toggleTheme}}>
             <Routes>
                 <Route path={'/'} element={<Layout />}>
-                    <Route index element={<HomePage />}/>
+                    <Route index element={<RegisterPage />}/>
+                    <Route path={'/home'} element={<HomePage />}/>
+                    <Route path={'/login'} element={<LoginPage />}/>
                     <Route path={'/chats'} element={<ChatsPage />} />
                     <Route path={'/chats/:chatId'} element={<ChatPage />}/>
                     <Route path={'/news'} element={<NewsPage />}/>

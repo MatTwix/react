@@ -1,43 +1,45 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import * as messagesSelector from "../redux/reducers/Messages/selectors";
+import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import MessageForm from "./MessageForm";
+import {useDispatch, useSelector} from "react-redux";
+import {messagesSelectors} from '../redux/reducers/Messages/index'
+import {
+    addMessageWithFirebase,
+    deleteMessageWithFirebase,
+    initMessageTracking
+} from "../redux/reducers/Messages/actions";
 
 const MessageFormContainer = () => {
-    const messageList = useSelector(messagesSelector.messageList);
+    const params = useParams();
+    const chatId = +params.chatId
 
+    const messageList = useSelector(messagesSelectors.messageList);
     const dispatch = useDispatch();
 
-    const [text, setText] = useState('');
-    const [author, setAuthor] = useState('');
+    const handleSubmit = (message, event) => {
+        if(event) event.preventDefault();
 
-    const params = useParams();
+        message = {
+            ...message,
+            id: messageList.length ? messageList.length - 1 : 0
+        }
 
-    const handleSubmit = (e) => {
-        if (e) e.preventDefault();
-
-        dispatch({
-            type: 'MESSAGE::ADD', payload: {
-                text: text,
-                author: author,
-                chatId: +params.chatId
-            }
-        })
+        dispatch(addMessageWithFirebase(chatId, message));
     }
+
+    useEffect(() => {
+        dispatch(initMessageTracking())
+    }, [])
 
     const handleDelete = (id) => {
-        dispatch({type: 'MESSAGE::DELETE', payload: {id: id}})
+        dispatch(deleteMessageWithFirebase(chatId, id))
     }
+
     return (
         <MessageForm
-            messageList={messageList.filter(message => message.chatId === +params.chatId)}
+            messageList={messageList}
             handleSubmit={handleSubmit}
             handleDelete={handleDelete}
-            setText={setText}
-            setAuthor={setAuthor}
-            text={text}
-            author={author}
         />
     );
 };

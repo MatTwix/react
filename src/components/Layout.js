@@ -21,7 +21,7 @@ const Layout = () => {
                     width: 500,
 
                 }}>
-                    <CustomLink to="/">home</CustomLink>
+                    <CustomLink to="/home">home</CustomLink>
                     <br/>
                     <CustomLink to="chats" >chats</CustomLink>
                     <br/>

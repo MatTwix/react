@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Box, Button, Container, TextField} from "@mui/material";
 
-const MessageForm = ({messageList, handleSubmit, handleDelete, text, setText, author, setAuthor}) => {
+const MessageForm = ({messageList, handleSubmit, handleDelete}) => {
+    const [text, setText] = useState('');
+    const [author, setAuthor] = useState('');
+
     return (
         <Container
             sx={{
@@ -14,7 +17,13 @@ const MessageForm = ({messageList, handleSubmit, handleDelete, text, setText, au
         >
             <Box
                 component='form'
-                onSubmit={handleSubmit}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSubmit({
+                        text: text,
+                        author: author,
+                    })
+                }}
             >
                 <TextField
                     id="outlined-multiline-static"
