@@ -16,8 +16,6 @@ const HomePage = () => {
         navigate('/login')
     }
 
-    console.log(user);
-
     return (
         <div>
             <h2>Home page</h2>

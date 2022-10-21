@@ -12,7 +12,7 @@ export const registerError = (e) => ({
 })
 
 export const registerSuccess = (user) => ({
-    types: types.SUCCESS_REGISTER,
+    type: types.SUCCESS_REGISTER,
     payload: user
 })
 
@@ -28,7 +28,7 @@ export const loginError = (e) => ({
 })
 
 export const loginSuccess = (user) => ({
-    types: types.SUCCESS_LOGIN,
+    type: types.SUCCESS_LOGIN,
     payload: user
 })
 
@@ -44,5 +44,5 @@ export const logoutError = (e) => ({
 })
 
 export const logoutSuccess = () => ({
-    types: types.SUCCESS_LOGOUT
+    type: types.SUCCESS_LOGOUT
 })
