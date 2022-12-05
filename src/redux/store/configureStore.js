@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import botAnswerSaga from "./sagas";
 import {newsReducer} from "../reducers/News/newsReducer";
+import {authReducer} from "../reducers/Auth/authReducer";
 
 // const config = {
 //     key: 'root',
@@ -16,6 +17,7 @@ import {newsReducer} from "../reducers/News/newsReducer";
 const sagaMiddleware = createSagaMiddleware();
 
 const reducer = combineReducers({
+    auth: authReducer,
     chats: chatsReducer,
     messages: messagesReducer,
     news: newsReducer
